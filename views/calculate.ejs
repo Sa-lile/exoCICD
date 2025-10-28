@@ -19,23 +19,11 @@
         <button type="submit">Calculate</button>
     </form>
 
-    <% if (error) { %>
-        <p style="color:red;">
-            <%= error %>
-        </p>
-        <% } %>
-
-            <% if (result && Object.keys(result).length> 0) { %>
-                <h2>Breakdown:</h2>
-                <ul>
-                    <% for (let [denom, count] of Object.entries(result)) { %>
-                        <li>
-                            <%= count %> × €<%= denom %>
-                        </li>
-                        <% } %>
-                </ul>
-                <% } %>
-
+     <!-- result of Amount to be returned -->
+    <% if (typeof result !== 'undefined' && result !== null) { %>
+        <h2>Amount to return : <%= Number(result).toFixed(2) %> €</h2>
+    <% } %>
+    
 </body>
 
 </html>
