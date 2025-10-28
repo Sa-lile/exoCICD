@@ -4,18 +4,18 @@
 
 ++++ Backend +++++
 
-# Initialiser node.js
+# Initialize Node.js
 npm init -y
 
-# Intaller les dépendances
+# Install dependencies
 npm install express ejs
 
-# rechargement automatique 
+# Automatic reloading 
 npm install --save-dev nodemon
 
-# Lancer le serveur
+# Start the server
 npm run dev
 npm start
 
-# le navigateur
+# Open the browser
 http://localhost:3000

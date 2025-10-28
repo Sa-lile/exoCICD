@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Calculator</title>
+</head>
+
+<body>
+    <form method="POST" action="/calculate">
+        <h1>Cash Register</h1>
+        <label for="du">Product Price (€):</label>
+        <input type="number" name="du" id="du" step="0.01" required><br><br>
+
+        <label for="donne">Amount Given (€):</label>
+        <input type="number" name="donne" id="donne" step="0.01" required><br><br>
+
+        <button type="submit">Calculate</button>
+    </form>
+
+    <% if (error) { %>
+        <p style="color:red;">
+            <%= error %>
+        </p>
+        <% } %>
+
+            <% if (result && Object.keys(result).length> 0) { %>
+                <h2>Breakdown:</h2>
+                <ul>
+                    <% for (let [denom, count] of Object.entries(result)) { %>
+                        <li>
+                            <%= count %> × €<%= denom %>
+                        </li>
+                        <% } %>
+                </ul>
+                <% } %>
+
+</body>
+
+</html>
