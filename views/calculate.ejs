@@ -18,28 +18,53 @@
         <label for="donne">Amount Given (€):</label>
         <input type="number" name="donne" id="donne" step="0.01" required><br><br>
 
-       
-        <label for="preference">Return preference (optional):</label>
-        <select name="preference" id="preference">
-            <option value="big" <%= (typeof preference !== 'undefined' && preference==='big') ? 'selected' : '' %>>Prefer large denominations</option>
-            <option value="many" <%= (typeof preference !== 'undefined' && preference==='many') ? 'selected' : '' %>>More coins/bills (more change)</option>
-            <option value="preferred" <%= (typeof preference !== 'undefined' && preference==='preferred') ? 'selected' : '' %>>Use a preferred denomination</option>
-        </select>
-
-        <div id="preferred-value-wrap" style="margin-top:8px; display:none;">
-            <label class="inline" for="preferredDenom">Preferred denomination (€):</label>
-            <input class="inline" type="number" name="preferredDenom" id="preferredDenom" step="0.01" placeholder="e.g.: 10.00" value="<%= typeof preferredDenom !== 'undefined' && preferredDenom !== null ? preferredDenom : '' %>">
-            <small>Optional: the server will try to use this value if possible.</small>
-        </div><br>
-
         <button type="submit">Calculate</button>
 
-    </form>
+        <div for="montantARendre" class="result-section">
+            <!-- result of Amount to be returned -->
+            <% if (typeof result !=='undefined' && result !==null) { %>
+                <div>Amount to return : <%= Number(result).toFixed(2) %> €</div>
+                <% } %>
+        </div>
+        <div for="rendu" class="result-section">
+            <!-- result of Change to be given -->
+          <% if (typeof rendu !== 'undefined' && rendu) { %>
+  <h3>Change to be given:</h3>
+  <table style="border-collapse: collapse; margin-bottom: 20px;">
+    <tr>
+      <% for (let denom in rendu) { %>
+        <th style="border: 1px dashed #ccc; padding: 5px 10px;"><%= denom %></th>
+      <% } %>
+    </tr>
+    <tr>
+      <% for (let denom in rendu) { %>
+        <td style="border: 1px dashed #ccc; padding: 5px 10px; text-align: center;">
+          <%= rendu[denom] %>
+        </td>
+      <% } %>
+    </tr>
+  </table>
+<% } %>
 
-    <!-- result of Amount to be returned -->
-    <% if (typeof result !=='undefined' && result !==null) { %>
-        <h2>Amount to return : <%= Number(result).toFixed(2) %> €</h2>
-        <% } %>
+<% if (typeof etatCaisse !== 'undefined' && etatCaisse) { %>
+  <h3>Register cash balance:</h3>
+  <table style="border-collapse: collapse; align-items: center; margin-top: 10px;">
+    <tr>
+      <% for (let denom in etatCaisse) { %>
+        <th style="border: 1px dashed #ccc; padding: 5px 10px;"><%= denom %></th>
+      <% } %>
+    </tr>
+    <tr>
+      <% for (let denom in etatCaisse) { %>
+        <td style="border: 1px  dashed #ccc; padding: 5px 10px; text-align: center;">
+          <%= etatCaisse[denom] %>
+        </td>
+      <% } %>
+    </tr>
+  </table>
+<% } %>
+
+    </form>
 
 
 </body>
