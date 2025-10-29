@@ -9,6 +9,8 @@ app.set('views', path.join(__dirname, 'views'));
 // Middleware to parse form data
 app.use(express.urlencoded({ extended: true })); 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Route views/index.ejs
 app.get('/', (req, res) => {
   res.render('calculate', { error: null, result: null });

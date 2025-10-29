@@ -4,26 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/calculate.css">
     <title>Cash Calculator</title>
 </head>
 
+
 <body>
     <form method="POST" action="/calculate">
-        <h1>Cash Register</h1>
+        <h2>Cash Register</h2>
         <label for="du">Product Price (€):</label>
         <input type="number" name="du" id="du" step="0.01" required><br><br>
 
         <label for="donne">Amount Given (€):</label>
         <input type="number" name="donne" id="donne" step="0.01" required><br><br>
 
+       
+        <label for="preference">Return preference (optional):</label>
+        <select name="preference" id="preference">
+            <option value="big" <%= (typeof preference !== 'undefined' && preference==='big') ? 'selected' : '' %>>Prefer large denominations</option>
+            <option value="many" <%= (typeof preference !== 'undefined' && preference==='many') ? 'selected' : '' %>>More coins/bills (more change)</option>
+            <option value="preferred" <%= (typeof preference !== 'undefined' && preference==='preferred') ? 'selected' : '' %>>Use a preferred denomination</option>
+        </select>
+
+        <div id="preferred-value-wrap" style="margin-top:8px; display:none;">
+            <label class="inline" for="preferredDenom">Preferred denomination (€):</label>
+            <input class="inline" type="number" name="preferredDenom" id="preferredDenom" step="0.01" placeholder="e.g.: 10.00" value="<%= typeof preferredDenom !== 'undefined' && preferredDenom !== null ? preferredDenom : '' %>">
+            <small>Optional: the server will try to use this value if possible.</small>
+        </div><br>
+
         <button type="submit">Calculate</button>
+
     </form>
 
-     <!-- result of Amount to be returned -->
-    <% if (typeof result !== 'undefined' && result !== null) { %>
+    <!-- result of Amount to be returned -->
+    <% if (typeof result !=='undefined' && result !==null) { %>
         <h2>Amount to return : <%= Number(result).toFixed(2) %> €</h2>
-    <% } %>
-    
+        <% } %>
+
+
 </body>
 
 </html>
