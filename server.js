@@ -1,8 +1,8 @@
 const path = require('path');
 const express = require('express');
 const app = express();
-const port = 3000;
-const { calculateChange } = require('./controllers/cashController');
+const port = process.env.PORT || 3000;
+const { calculateChange} = require('./controllers/cashController');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -72,12 +72,12 @@ app.post('/calculate', (req, res) => {
 
     // Rendre la vue avec les données
     res.render('calculate', {
-      error: null,
+      error: 'Le montant donné est inférieur au montant dû',
       du: montantDu,
       donne: montantDonne,
       result: montantARendre,
-      rendu,
-      etatCaisse
+      rendu: null,
+      etatCaisse: null
     });
 
   } catch (err) {
