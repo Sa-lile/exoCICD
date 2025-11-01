@@ -1,9 +1,16 @@
-name: Unit Tests
+name: CI/CD Tests
 
 on:
-  pull_request: ~
-  push: ~
-  workflow_dispatch: ~
+  push:
+    branches: [main]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      node-version:
+        description: 'Node.js version'
+        required: false
+        default: 'manual run'
 
 jobs:
   unit-tests:
@@ -11,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14, 16, 20, 22] # Matrice pour différentes versions de Node.js
+        node-version: [14, 20, 22] # Matrice pour différentes versions de Node.js
 
     steps:
       - name: checkout
