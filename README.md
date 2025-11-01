@@ -71,6 +71,14 @@ The status of the latest CI/CD + minify run: `build.yml`
 [![CI/CD Build & Minify]](https://github.com/Sa-lile/exoCICD/actions/workflows/build.yml)
 
 ## CI/CD build + minify workflow
+
 ```bash
 chmod +x minify.sh
+```
+
+## Test Docker 
+
+```bash
+docker build -t testapp:latest .  // tag name is testapp
+docker run -d -p 3000:3000 testapp::latest
 ```
