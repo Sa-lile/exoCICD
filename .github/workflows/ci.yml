@@ -8,44 +8,39 @@ on:
   workflow_dispatch:
     inputs:
       node-version:
-        description: 'Node.js version'
+        description: 'Node.js version to run (optional)'
         required: false
-        default: 'manual run'
 
 jobs:
   unit-tests:
-    name: unit tests
+    name: Unit Tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [16, 18, 22]
-      fail-fast: false 
+      fail-fast: false
 
     steps:
-      - name: checkout
+      - name: Checkout repo
         uses: actions/checkout@v5
-        with:
-          ref: ${{ github.sha }}
 
-      - name: setupNode
+      - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ github.event.inputs.node-version || matrix.node-version }}
 
-      - name: cache deps
+      - name: Cache node modules
         uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-1
+            ${{ runner.os }}-npm-
 
-      - name: install modules
-        id: installModules
-        shell: bash
-        run: |
-          npm i
+      - name: Install dependencies
+        run: npm ci
 
-      - name: execute tests
-        id: execute_tests
-        run: npm run test --if-present
+      - name: Run unit tests
+        run: npm test
+        env:
+          CI: true
