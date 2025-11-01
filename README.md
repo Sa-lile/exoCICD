@@ -63,3 +63,32 @@ Snapshots:   0 total
 Time:        1.818 s, estimated 2 s
 ```
 
+## Test Results - workflows 
+The status of the latest CI/CD run: `ci.yml`
+[![CI/CD Tests]](https://github.com/Sa-lile/exoCICD/actions/workflows/ci.yml)
+
+The status of the latest CI/CD + minify run: `build.yml`
+[![CI/CD Build & Minify]](https://github.com/Sa-lile/exoCICD/actions/workflows/build.yml)
+
+## CI/CD build + minify workflow
+
+```bash
+chmod +x minify.sh
+```
+
+## Test Docker 
+
+```bash
+docker build -t testapp:latest .  // tag name is testapp
+docker run -d -p 3000:3000 testapp::latest
+```
+## Test Results - Docker 
+`dockerize`run
+[![Make Docker image]](https://github.com/Sa-lile/exoCICD/actions/workflows/dockerize.yml)
+
+
+## Analyzing code quality with SonarQube
+
+- Je n’arrive pas à résoudre les problèmes pour tester SonarQube
+- lien : https://sonarcloud.io/
+[![SonarQube Analysis]](https://github.com/Sa-lile/exoCICD/actions/workflows/codeQuality.yml)

@@ -1,0 +1,30 @@
+name: Make Docker image
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    
+
+jobs:
+  make-docker:
+    name: build-image
+    runs-on: ubuntu-latest
+    if: ${{ github.ref_name == 'main' }}
+    
+    steps:
+      - name: checkout
+        id: checkout
+        uses: actions/checkout@v5
+        with:
+          res: ${{ github.sha }}
+
+      - name: build-image
+        id: build-image
+        run: docker build -t sachiyos/testapp:latest .
+
+      - name: push-image
+        id: push-image
+        run: |
+          docker login -u sachiyos -p ${{ secrets.DOCKER_HUB_TOKEN }}
+          docker push sachiyos/testapp:latest 
