@@ -42,13 +42,14 @@ npm run dev
 http://localhost:3000
 ```
 
-## Lancer les tests
+## Run the tests
 
 ```bash
 npm install --save-dev jest
 npx jest
 ```
-## Result de test `cachController.test.js`,`e2e.test.js`,`server.test.js`
+## Test Results 
+cachController.test.js, e2e.test.js, server.test.js
 
 ```bash
  PASS  tests/cashController.test.js
@@ -61,3 +62,4 @@ Tests:       8 passed, 8 total
 Snapshots:   0 total
 Time:        1.818 s, estimated 2 s
 ```
+

@@ -1,0 +1,43 @@
+name: Unit Tests
+
+on:
+  pull_request: ~
+  push: ~
+  workflow_dispatch: ~
+
+jobs:
+  unit-tests:
+    name: unit tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14, 16, 20, 22] # Matrice pour différentes versions de Node.js
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.sha }}
+
+      - name: setupNode
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: cache deps
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-1
+
+      - name: install modules
+        id: installModules
+        shell: bash
+        run: |
+          npm i
+
+      - name: execute tests
+        id: execute_tests
+        run: npm run test --if-present
