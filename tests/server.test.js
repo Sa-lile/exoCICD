@@ -2,16 +2,6 @@ const request = require('supertest');
 const express = require('express');
 const { calculateChange } = require('../controllers/cashController');
 
-// Fonction intermédiaire pour adapter calculateChange au test
-function calculerRendu(du, donne, etatCaisse) {
-  const montantARendre = donne - du;
-  if (montantARendre < 0) {
-    return { error: 'Le montant donné est insuffisant' };
-  }
-  const rendu = calculateChange(montantARendre, etatCaisse); // renvoie { '2.00': 1, '0.50': 1 } etc.
-  return { rendu, etatCaisse };
-}
-
 let app;
 let etatCaisse;
 
@@ -19,31 +9,38 @@ beforeEach(() => {
   app = express();
   app.use(express.json());
 
-  // Etat initial de la caisse
-  etatCaisse = { '2.00': 2, '1.00': 2, '0.50': 2 };
+  etatCaisse = {
+    '50': 1,
+    '20': 2,
+    '5': 5,
+    '2.00': 10,
+    '1.00': 10,
+    '0.50': 10
+  };
 
-  // Route POST /calculate pour le test
   app.post('/calculate', (req, res) => {
     const { du, donne } = req.body;
-    const resultat = calculerRendu(du, donne, etatCaisse);
+    const montantARendre = donne - du;
 
-    if (!resultat.error) {
-      // Met à jour l'état de la caisse après rendu
-      etatCaisse = resultat.etatCaisse;
+    if (montantARendre < 0) {
+      return res.json({ error: 'Le montant donné est insuffisant' });
     }
 
-    res.json(resultat);
+    const { rendu, caisseActuelle, error } = calculateChange(montantARendre, { ...etatCaisse });
+
+    if (!error) etatCaisse = caisseActuelle;
+
+    res.json({ rendu, error });
   });
 });
 
 describe('POST /calculate', () => {
-
   it('retourne le rendu correct', async () => {
     const res = await request(app)
       .post('/calculate')
       .send({ du: 2.5, donne: 5 });
 
-    // Vérifie que le rendu est correct (clés formatées avec deux décimales)
+    // Vérifie que le rendu est correct
     expect(res.body.rendu).toEqual({ '2.00': 1, '0.50': 1 });
     expect(res.body.error).toBeUndefined();
   });
@@ -53,8 +50,6 @@ describe('POST /calculate', () => {
       .post('/calculate')
       .send({ du: 10, donne: 5 });
 
-    // Vérifie que l'erreur correspond au message attendu
     expect(res.body.error).toBe('Le montant donné est insuffisant');
   });
-
 });

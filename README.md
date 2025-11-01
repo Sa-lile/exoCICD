@@ -6,7 +6,7 @@
 - `views` :  fichiers de vues côté front-end (.ejs)
 - `public` :  fichiers statiques côté front-end (css)
 - `controllers` : logique métier et fonctionnalités de la caisse
-- `tests/` : tous les tests unitaires, fonctionnels et E2E
+- `tests` : tous les tests unitaires, fonctionnels et E2E
 - `server.js` : point d’entrée du serveur Node.js avec Express
 - `package.json` : configuration du projet et dépendances npm
 
@@ -47,4 +47,17 @@ http://localhost:3000
 ```bash
 npm install --save-dev jest
 npx jest
+```
+## Result de test `cachController.test.js`,`e2e.test.js`,`server.test.js`
+
+```bash
+ PASS  tests/cashController.test.js
+ PASS  tests/server.test.js
+Server is running at http://localhost:3000
+ PASS  tests/e2e.test.js
+
+Test Suites: 3 passed, 3 total
+Tests:       8 passed, 8 total
+Snapshots:   0 total
+Time:        1.818 s, estimated 2 s
 ```

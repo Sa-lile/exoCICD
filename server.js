@@ -25,6 +25,10 @@ const etatCaisse = {
   '0.10': 20,
   '0.05': 20
 };
+// utiliser pour tester
+app.get('/etat-caisse', (req, res) => {
+  res.json(etatCaisse);
+});
 
 // Route views/calculate.ejs
 app.get('/', (req, res) => {

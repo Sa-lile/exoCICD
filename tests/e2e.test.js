@@ -11,33 +11,29 @@ describe('E2E - API Caisse', () => {
     serverProcess = spawn('node', [path.join(__dirname, '../server.js')], {
       stdio: 'inherit', 
     });
-
-    // Laisse le temps au serveur de démarrer
-    setTimeout(done, 1500);
+    setTimeout(done, 1000);
+  });
+    afterAll(() => {
+      if (serverProcess) serverProcess.kill();
   });
 
-  // Stoppe le serveur après les tests
-  afterAll(() => {
-    if (serverProcess) serverProcess.kill();
-  });
-
-  // Teste la route /etat-caisse
-  it('retourne l’état de la caisse en JSON', async () => {
+  // Tests the /etat-caisse route
+  it('returns the cash register state via API', async () => {
     const res = await axios.get(`${baseUrl}/etat-caisse`);
     expect(res.status).toBe(200);
-    expect(res.data).toBeDefined();
-    expect(res.data['50']).toBe(10);
-    expect(typeof res.data).toBe('object');
+    expect(res.data).toBeDefined(); //Checks response data exists (not undefined)
+    expect(res.data['50']).toBe(10); //Checks there are 10 bills of 50€ in the returned data
+    expect(typeof res.data).toBe('object'); //Checks response data is an object
   });
 
-  // Teste une erreur (montant insuffisant)
-  it('affiche une erreur si le montant donné est insuffisant', async () => {
+  // Tests an error case (insufficient amount given)
+  it('displays an error if the amount given is insufficient', async () => {
     const res = await axios.post(`${baseUrl}/calculate`, {
       du: 10,
       donne: 5,
     });
 
-    expect(res.status).toBe(200); // le serveur rend quand même la vue
+    expect(res.status).toBe(200); 
     expect(res.data).toContain('Le montant donné est inférieur');
   });
 });
