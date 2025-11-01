@@ -2,7 +2,10 @@ name: CI/CD Tests
 
 on:
   push:
-    branches: [main]
+    branches:
+    - main
+    - develop
+    - 'feature/*'
   pull_request:
     branches: [ main ]
   workflow_dispatch:
