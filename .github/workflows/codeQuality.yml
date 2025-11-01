@@ -19,10 +19,7 @@ jobs:
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         with:
-          args: >
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
-            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+          fetch-depth: 0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_QUBE_TOKEN }}
           SONAR_PROJECT_KEY: ${{secrets.SONAR_PROJECT_KEY}}
