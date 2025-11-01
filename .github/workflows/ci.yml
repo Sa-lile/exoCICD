@@ -10,6 +10,7 @@ on:
       node-version:
         description: 'Node.js version to run (optional)'
         required: false
+        default: 'manual run'
 
 jobs:
   unit-tests:
