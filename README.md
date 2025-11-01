@@ -88,5 +88,7 @@ docker run -d -p 3000:3000 testapp::latest
 
 
 ## Analyzing code quality with SonarQube
-lien : https://sonarcloud.io/
 
+- Je n’arrive pas à résoudre les problèmes pour tester SonarQube
+- lien : https://sonarcloud.io/
+[![SonarQube Analysis]](https://github.com/Sa-lile/exoCICD/actions/workflows/codeQuality.yml)
