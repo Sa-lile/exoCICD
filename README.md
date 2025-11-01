@@ -63,7 +63,7 @@ Snapshots:   0 total
 Time:        1.818 s, estimated 2 s
 ```
 
-## Test Results - Workflows 
+## Test Results - workflows 
 The status of the latest CI/CD run: `ci.yml`
 ![CI/CD Tests](https://github.com/Sa-lile/exoCICD/actions/workflows/ci.yml)
 
