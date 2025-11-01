@@ -82,4 +82,11 @@ chmod +x minify.sh
 docker build -t testapp:latest .  // tag name is testapp
 docker run -d -p 3000:3000 testapp::latest
 ```
+## Test Results - Docker 
 `dockerize`run
+[![Make Docker image]](https://github.com/Sa-lile/exoCICD/actions/workflows/dockerize.yml)
+
+
+## Analyzing code quality with SonarQube
+lien : https://sonarcloud.io/
+
