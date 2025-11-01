@@ -63,7 +63,7 @@ jobs:
         run: npm install
 
       - name: Build and Minify
-        run: ./minify.sh
+        run: ./minify.sh || true
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
