@@ -64,10 +64,10 @@ Time:        1.818 s, estimated 2 s
 ```
 
 ## Test Results - Workflows 
-The status of the latest CI/CD run: ci.yml
+The status of the latest CI/CD run: `ci.yml`
 ![CI/CD Tests](https://github.com/Sa-lile/exoCICD/actions/workflows/ci.yml)
 
-The status of the latest CI/CD + minify run: build.yml
+The status of the latest CI/CD + minify run: `build.yml`
 [![CI/CD Build & Minify]](https://github.com/Sa-lile/exoCICD/actions/workflows/build.yml)
 
 ## CI/CD build + minify workflow
