@@ -58,26 +58,27 @@
               <% if (typeof etatCaisse !=='undefined' && etatCaisse) { %>
                 <h3>Register cash balance:</h3>
                 <table style="border-collapse: collapse; align-items: center; margin-top: 10px;">
-                  <tr>
-                    <% for (let denom in etatCaisse) { %>
-                      <th style="border: 1px dashed #ccc; padding: 5px 10px;">
-                        <%= denom %>
-                      </th>
-                      <% } %>
-                  </tr>
-                  <tr>
-                    <% for (let denom in etatCaisse) { %>
-                      <td style="border: 1px  dashed #ccc; padding: 5px 10px; text-align: center;">
-                        <%= etatCaisse[denom] %>
-                      </td>
-                      <% } %>
-                  </tr>
+                  <!-- trier du plus grand au plus petit -->
+                  <% const sortedDenoms=Object.keys(etatCaisse) .sort((a, b)=> parseFloat(b) - parseFloat(a));
+                    %>
+                    <tr>
+                      <% sortedDenoms.forEach(denom=> { %>
+                        <th style="border: 1px dashed #ccc; padding: 5px 10px;">
+                          <%= denom %>
+                        </th>
+                        <% }) %>
+                    </tr>
+                    <tr>
+                      <% sortedDenoms.forEach(denom=> { %>
+                        <td style="border: 1px dashed #ccc; padding: 5px 10px; text-align: center;">
+                          <%= etatCaisse[denom] %>
+                        </td>
+                        <% }) %>
+                    </tr>
                 </table>
                 <% } %>
 
   </form>
-
-
 </body>
 
 </html>
