@@ -82,3 +82,4 @@ chmod +x minify.sh
 docker build -t testapp:latest .  // tag name is testapp
 docker run -d -p 3000:3000 testapp::latest
 ```
+`dockerize`run
